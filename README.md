@@ -78,7 +78,7 @@ Démarrez votre navigateur internet et accédez à l'adresse suivante:
 
 ### Exporter un fichier CSV
 
-Vous pouvez importer plusieurs utilisateurs depuis un fichier CSV.
+Vous pouvez importer plusieurs utilisateurs depuis un fichier CSV.<br>
 Pour cela:
 
 * Cliquez sur **Créer des utilisateurs** puis sur **Importer CSV**.
