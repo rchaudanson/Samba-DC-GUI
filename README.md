@@ -30,7 +30,7 @@ Vous devez disposer des programmes suivants:
 
 - Python3
 - Flask (`pip install Flask`).
-- D'un contrôler de domaine Samba4 fonctionnel.
+- D'un système Linux avec un contrôler de domaine Samba4 fonctionnel.
 
 ### Copie des fichiers:
 
