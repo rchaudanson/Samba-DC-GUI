@@ -80,7 +80,7 @@ Démarrez votre navigateur internet et accédez à l'adresse suivante:
 ### Ajout des utilisateurs
 
 * Cliquez sur **Créer des utilisateurs** puis sur **Créer un utilisateur**.
-* Indiquez les information concernant l'utilisateur et validez.
+* Indiquez les informations concernant l'utilisateur et validez.
 
 ![ ](http://www.linux-migration.fr/Cap5.png)
 
@@ -92,7 +92,7 @@ Vous pouvez importer plusieurs utilisateurs depuis un fichier CSV.<br>
 Pour cela:
 
 * Cliquez sur **Créer des utilisateurs** puis sur **Importer CSV**.
-* Le fichier CSV doit être formater de la façon suivante:
+* Le fichier CSV doit être formaté de la façon suivante:
 
 ```
 jlogan,motdepasse,julien,logan,jlogan@isis.local,569
@@ -123,7 +123,7 @@ L'interface est axées autour de 6 templates HTML situés dans le dossier "templ
 **Note:** 
 
 * Le template "table" est un tableau HTML généré à chaque consultation de la liste des utilisateurs. 
-* Le template "delete" est n'est actuellement pas utilisé.
+* Le template "delete" n'est actuellement pas utilisé.
 
 
 ## Auteur
