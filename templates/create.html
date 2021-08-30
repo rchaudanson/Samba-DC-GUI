@@ -1,0 +1,263 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+}
+</style>
+
+
+<br>
+<div class="container">
+<div class="tab">
+  <button class="tablinks" onclick="openCity(event, 'Users')">Importer CSV</button>
+  <button class="tablinks" onclick="openCity(event, 'User')">Créer un utilisateur</button>
+</div>
+<div class="row gutters">
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div id="Users" class="tabcontent card h-100">
+	<div class="card-body">
+		<div class="account-settings">
+			<div class="user-profile">
+				<div class="user-avatar">
+					<img src="static/images/Users.png" style="width: 200px;" alt="Maxwell Admin">
+					
+				</div>
+				
+			</div>
+			<div class="about">
+				    
+    <form method=post action="import" enctype=multipart/form-data>
+    <h6 class="mt-3 mb-2 text-primary">Fichier CSV:</h6>
+        <input type="file" name="file" id="file"/>
+	<br><br>
+	<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mt-3 mb-2 text-primary">Unité d'Organisation</h6>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				
+				<select name="service" class="form-control form-control-sm">
+ 				 <option>Comptabilité</option>
+ 				 <option>Production</option>
+ 				 <option>Commercial</option>
+ 				 <option>Développement</option>
+				</select>
+				
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				
+				<br><br><br><br>
+				
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<!-- Changement de True vers False, input ci-dessous -->
+				<script>
+				if(document.getElementById("customSwitch1").checked) {
+    				document.getElementById('customSwitch11').disabled = true;
+				}
+				</script>
+				<div class="custom-control custom-switch">
+				  <input type="checkbox" name="customSwitch1" class="custom-control-input" id="customSwitch1" value=1>
+				  <input type="hidden" name="customSwitch1" class="custom-control-input" id="customSwitch11" value=0>
+				  <label class="custom-control-label" for="customSwitch1">L'utilisateur doit changer son mot de passe</label>
+				</div>
+				
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<script>
+				if(document.getElementById("customSwitch2").checked) {
+    				document.getElementById('customSwitch22').disabled = true;
+				}
+				</script>
+				<div class="custom-control custom-switch">
+				  <input type="checkbox" name="customSwitch2" class="custom-control-input" id="customSwitch2" value=1>
+				  <input type="hidden" name="customSwitch2" class="custom-control-input" id="customSwitch22" value=0>
+				  <label class="custom-control-label" for="customSwitch2">Désactiver la réinitialisation du mot de passe</label>
+				</div>
+				
+			</div>
+			
+		</div><br>
+        <input type=submit class="btn btn-primary" value="Créer les utilisateurs">
+        
+    </form><form method="post">
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
+<div class="card h-100">
+	<div id="User"class="tabcontent card-body">
+	<div class="user-profile">
+				<div class="user-avatar">
+					<img src="static/images/User.png" style="width: 200px;" alt="Maxwell Admin">
+					
+				</div>
+				
+				
+			</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mb-2 text-primary">Parametres Utilisateur</h6>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="Nom">Nom</label>
+					<input type="text" name="Nom" class="form-control" id="Nom" placeholder="Nom de l'utilisateur">
+				</div>
+				
+			</div>
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="Prenom">Prenom</label>
+					<input type="text" name="Prenom" class="form-control" id="Prenom" placeholder="Prenom de l'utilisateur">
+				</div>
+				
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="login">Identifiant</label>
+					<input type="text" name="login" class="form-control" id="login" placeholder="Identifiant de connexion Windows">
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="password">Password</label>
+					<input type="password" name="password" class="form-control" id="password" placeholder="Password de connexion Windows">
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="email">Email</label>
+					<input type="text" name="email" class="form-control" id="email" placeholder="Addresse mail de l'utilisateur">
+				</div>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<div class="form-group">
+					<label for="phone">Téléphone</label>
+					<input type="text" name="phone" class="form-control" id="phone" placeholder="Numero de téléphone du bureau">
+				</div>
+			</div>
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<h6 class="mt-3 mb-2 text-primary">Unité d'Organisation</h6>
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				
+				<select name="service" class="form-control form-control-sm">
+ 				 <option>Comptabilité</option>
+ 				 <option>Production</option>
+ 				 <option>Commercial</option>
+ 				 <option>Développement</option>
+				</select>
+				
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				
+				<br><br><br><br>
+				
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				<!-- Changement de True vers False, input ci-dessous -->
+				<script>
+				if(document.getElementById("customSwitch3").checked) {
+    				document.getElementById('customSwitch33').disabled = true;
+				}
+				</script>
+				<div class="custom-control custom-switch">
+				  <input type="checkbox" name="customSwitch3" class="custom-control-input" id="customSwitch3" value=1>
+				  <input type="hidden" name="customSwitch3" class="custom-control-input" id="customSwitch33" value=0>
+				  <label class="custom-control-label" for="customSwitch3">L'utilisateur doit changer son mot de passe</label>
+				</div>
+				
+			</div>
+			<div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+				
+				<script>
+				if(document.getElementById("customSwitch4").checked) {
+    				document.getElementById('customSwitch44').disabled = true;
+				}
+				</script>
+				<div class="custom-control custom-switch">
+				  <input type="checkbox" name="customSwitch4" class="custom-control-input" id="customSwitch4" value=1>
+				  <input type="hidden" name="customSwitch4" class="custom-control-input" id="customSwitch44" value=0>
+				  <label class="custom-control-label" for="customSwitch4">Désactiver la réinitialisation du mot de passe</label>
+				</div>
+				<br>
+			</div>
+
+		</div>
+		<div class="row gutters">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+				<div class="text-right">
+					
+					<button type="submit" id="submit" name="submit" class="btn btn-primary">Créer l'utilisateur</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+
+<script>
+function openCity(evt, cityName) {
+  var i, tabcontent, tablinks;
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+
+</script>
+
+{% endblock %}
