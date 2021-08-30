@@ -8,6 +8,7 @@
 
 ## Table des matières
 
+- [Description](#Description)
 - [Installation](#installation)
     - [Copie des fichiers](#copie-des-fichiers)
     - [Lancement](#lancement)
@@ -21,8 +22,17 @@
     - [delete.html](#template-delete)
     - [liste.html](#template-liste)
     - [table.html](#template-table)
+- [Auteur](#auteur)
 - [Licence](#licence)
 - [Liens](#liens)
+
+
+## Description
+
+**Samba-DC-GUI** est une interface graphique pour l'administration des utilisateurs d'un contrôleur de domaine Samba sous Linux.
+
+
+
 
 ## Installation
 
@@ -116,14 +126,16 @@ L'interface est axées autour de 6 templates HTML situés dans le dossier "templ
 * Le template "delete" est n'est actuellement pas utilisé.
 
 
-
+## Auteur
+CHAUDANSON Raphael<br><br>
+rchaudanson@gmail.com
 
 ## Licence
 
-????????????????????????
+**GNU** General Public License
 
 ## Liens
 
 * [Samba](https://www.samba.org/)
-* [Flack](https://flask.palletsprojects.com/)
+* [Flask](https://flask.palletsprojects.com/)
 * [Python](https://www.python.org/)
