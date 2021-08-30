@@ -1,6 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
 from flask_table import Table, Col
-from bs4 import BeautifulSoup
 import getpass
 import ldb
 import os
@@ -14,50 +13,59 @@ from samba.param import LoadParm
 from samba.samdb import SamDB
 
 app = Flask(__name__)
+
+#Clé pour les échanges de données chiffrées
 app.config['SECRET_KEY'] = 'JSkjhdde45fr5LKSlKJSDd45ef4frgj54E10'
 
-
+#Variable avec le chemin du dossier "upload"
 UPLOAD_FOLDER = 'Upload/'
 
-
+#Ouverture d’une connection en direct sur la base LDB 
 lp = LoadParm()
 creds = Credentials()
 creds.guess(lp)
 samdb = SamDB(url='/var/lib/samba/private/sam.ldb', session_info=system_session(),credentials=creds, lp=lp)
 
 
+
 #ROUTE FLASK
+
 
 #Route index
 @app.route('/')
 def index():
     return render_template('index.html')
+
+
     
 #Route import ( importation CSV )    
 @app.route('/import', methods=['GET', 'POST'])
 def upload_file():
-    if request.method == 'POST':
-        # check if the post request has the file part
-        if 'file' not in request.files:
-            flash('No file part')
-            return redirect(request.url)
+    if request.method == 'POST': 
+       file = request.files['file']
+       if file.filename == '':
+          return """
+             <h1 style='color: red;'>Aucun fichier sélectionné!</h1>
+             <button onclick="window.location.href='create'">Retour</button>
+
+             """
             
-        file = request.files['file']
-        
-        if file.filename == '':
-            flash('No selected file')
-            return redirect(request.url)
-            
-        filename = (file.filename)
-        file.save(os.path.join(UPLOAD_FOLDER, filename))
-        with open(os.path.join(UPLOAD_FOLDER, filename)) as fichier_csv:
-           reader = csv.reader(fichier_csv, delimiter=',')
-           for ligne in reader:
-              #print(ligne[1])
-              samdb.newuser(username=(ligne[0]),password=(ligne[1]),force_password_change_at_next_login_req=True,mailaddress=(ligne[2]))
+       file = request.files['file']            
+       filename = (file.filename)
+       file.save(os.path.join(UPLOAD_FOLDER, filename))
+       with open(os.path.join(UPLOAD_FOLDER, filename)) as fichier_csv:
+          reader = csv.reader(fichier_csv, delimiter=',')
+          #Boucle for, récuperation des information sur chaque ligne du fichier CSV, ajout de l'utilisateur.
+          for ligne in reader:
+             #print(ligne[1])
+             samdb.newuser(username=ligne[0],password=ligne[1],force_password_change_at_next_login_req=int(request.form['customSwitch1']),setpassword=int(request.form['customSwitch2']),userou="OU="+request.form['service'],mailaddress=ligne[4],telephonenumber=ligne[5],surname=ligne[3],givenname=ligne[2],scriptpath="C:\test.bat")
+          
+             
+                
               
-           return redirect(url_for('liste'))
+       return redirect(url_for('liste'))
     return redirect(url_for('liste'))
+
 
 
 #Route delete
@@ -67,8 +75,12 @@ def test():
         login1 = request.args.get('login')
         
 
-        if not login1:
-            flash('Title is required!')
+        if login1 == '':
+           return """
+             <h1 style='color: red;'>Aucun utilisateur sélectionné!</h1>
+             <button onclick="window.location.href='create'">Retour</button>
+
+             """
         else:
             samdb.deleteuser(username=request.args.get('login'))
             return redirect(url_for('liste'))
@@ -76,21 +88,20 @@ def test():
     return render_template('delete.html')
 
 
+
 #Route create
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
-        title = request.form['Nom']
-        content = request.form['Prenom']
-
-        if not title:
-            flash('Title is required!')
-        else:
-            samdb.newuser(username=request.form['Nom'],password=request.form['Prenom'],force_password_change_at_next_login_req=True,mailaddress="test@free.fr")
-            return redirect(url_for('liste'))
+       print(request.form['customSwitch3'])
+       print(request.form['customSwitch4'])
+       samdb.newuser(username=request.form['login'],password=request.form['password'],force_password_change_at_next_login_req=int(request.form['customSwitch3']),setpassword=int(request.form['customSwitch4']),userou="OU="+request.form['service'],mailaddress=request.form['email'],telephonenumber=request.form['phone'],surname=request.form['Nom'],givenname=request.form['Prenom'],scriptpath="C:\test.bat")
+            
+       return redirect(url_for('liste'))
 
     return render_template('create.html', variable='12345')
     
+
 
 #Route liste ( liste des utilisateurs )    
 @app.route('/liste')
@@ -101,6 +112,7 @@ def liste():
     query = "(|(objectclass=user))"
     result = samdb.search('DC=isis,DC=local', expression=query, scope=ldb.SCOPE_SUBTREE)
     
+    #Boucle for, creation du tableau HTML dans la variable strTable
     for item in result:
     	if 'sAMAccountName' in item:
     		
@@ -109,7 +121,7 @@ def liste():
         	
         	if str(item['sAMAccountName']) != "DESKTOP-VA3I87F$" and str(item['sAMAccountName']) != "Administrator" and str(item['sAMAccountName']) != "Guest" and str(item['sAMAccountName']) != "DC1$" and str(item['sAMAccountName']) != "krbtgt":
         	   strTable = strTable+"<tr><td>"+str(item['sAMAccountName'])+ "</td><td>"+str(item['mail'])+ "</td><td>"+"<a href='delete?login="+str(item['sAMAccountName'])+"'>"+"<img src='/static/images/delete.png'></a>"+"</td></tr>"
-        	
+    #Enregistrement de la variable "strTable" vers "table.html"    	
     file = open("templates/table.html","w")
     file.write(strTable)
     file.close()
