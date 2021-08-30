@@ -20,7 +20,7 @@ app.config['SECRET_KEY'] = 'JSkjhdde45fr5LKSlKJSDd45ef4frgj54E10'
 #Variable avec le chemin du dossier "upload"
 UPLOAD_FOLDER = 'Upload/'
 
-#Ouverture d’une connection en direct sur la base LDB 
+#Ouverture d’une connexion en direct sur la base LDB 
 lp = LoadParm()
 creds = Credentials()
 creds.guess(lp)
@@ -55,7 +55,7 @@ def upload_file():
        file.save(os.path.join(UPLOAD_FOLDER, filename))
        with open(os.path.join(UPLOAD_FOLDER, filename)) as fichier_csv:
           reader = csv.reader(fichier_csv, delimiter=',')
-          #Boucle for, récuperation des information sur chaque ligne du fichier CSV, ajout de l'utilisateur.
+          #Boucle for, récuperation des informations sur chaque ligne du fichier CSV, ajout de l'utilisateur.
           for ligne in reader:
              #print(ligne[1])
              samdb.newuser(username=ligne[0],password=ligne[1],force_password_change_at_next_login_req=int(request.form['customSwitch1']),setpassword=int(request.form['customSwitch2']),userou="OU="+request.form['service'],mailaddress=ligne[4],telephonenumber=ligne[5],surname=ligne[3],givenname=ligne[2],scriptpath="C:\test.bat")
