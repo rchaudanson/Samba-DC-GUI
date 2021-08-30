@@ -122,7 +122,7 @@ L'interface est axées autour de 6 templates HTML situés dans le dossier "templ
 
 **Note:** 
 
-* Le template "tables" est un tableau HTML généré à chaque consultation de la liste des utilisateurs. 
+* Le template "table" est un tableau HTML généré à chaque consultation de la liste des utilisateurs. 
 * Le template "delete" est n'est actuellement pas utilisé.
 
 
