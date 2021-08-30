@@ -93,8 +93,6 @@ def test():
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
-       print(request.form['customSwitch3'])
-       print(request.form['customSwitch4'])
        samdb.newuser(username=request.form['login'],password=request.form['password'],force_password_change_at_next_login_req=int(request.form['customSwitch3']),setpassword=int(request.form['customSwitch4']),userou="OU="+request.form['service'],mailaddress=request.form['email'],telephonenumber=request.form['phone'],surname=request.form['Nom'],givenname=request.form['Prenom'],scriptpath="C:\test.bat")
             
        return redirect(url_for('liste'))
@@ -108,19 +106,19 @@ def create():
 def liste():
     
     strTable = " "
-
+    
+    #Récupération des utilisateurs dans la base samba.
     query = "(|(objectclass=user))"
     result = samdb.search('DC=isis,DC=local', expression=query, scope=ldb.SCOPE_SUBTREE)
     
     #Boucle for, creation du tableau HTML dans la variable strTable
     for item in result:
     	if 'sAMAccountName' in item:
-    		
-        	#print(item['mail'])
-        	#print(item['sAMAccountName'])
+
         	
         	if str(item['sAMAccountName']) != "DESKTOP-VA3I87F$" and str(item['sAMAccountName']) != "Administrator" and str(item['sAMAccountName']) != "Guest" and str(item['sAMAccountName']) != "DC1$" and str(item['sAMAccountName']) != "krbtgt":
         	   strTable = strTable+"<tr><td>"+str(item['sAMAccountName'])+ "</td><td>"+str(item['mail'])+ "</td><td>"+"<a href='delete?login="+str(item['sAMAccountName'])+"'>"+"<img src='/static/images/delete.png'></a>"+"</td></tr>"
+        	   
     #Enregistrement de la variable "strTable" vers "table.html"    	
     file = open("templates/table.html","w")
     file.write(strTable)
