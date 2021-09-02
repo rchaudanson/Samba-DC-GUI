@@ -58,7 +58,7 @@ def upload_file():
           #Boucle for, récuperation des informations sur chaque ligne du fichier CSV, ajout de l'utilisateur.
           for ligne in reader:
              #print(ligne[1])
-             samdb.newuser(username=ligne[0],password=ligne[1],force_password_change_at_next_login_req=int(request.form['customSwitch1']),setpassword=int(request.form['customSwitch2']),userou="OU="+request.form['service'],mailaddress=ligne[4],telephonenumber=ligne[5],surname=ligne[3],givenname=ligne[2],scriptpath="C:\test.bat")
+             samdb.newuser(username=ligne[0],password=ligne[1],force_password_change_at_next_login_req=int(request.form['customSwitch1']),setpassword=int(request.form['customSwitch2']),mailaddress=ligne[4],telephonenumber=ligne[5],surname=ligne[3],givenname=ligne[2],scriptpath="C:\test.bat")
           
              
                 
@@ -93,7 +93,7 @@ def test():
 @app.route('/create', methods=('GET', 'POST'))
 def create():
     if request.method == 'POST':
-       samdb.newuser(username=request.form['login'],password=request.form['password'],force_password_change_at_next_login_req=int(request.form['customSwitch3']),setpassword=int(request.form['customSwitch4']),userou="OU="+request.form['service'],mailaddress=request.form['email'],telephonenumber=request.form['phone'],surname=request.form['Nom'],givenname=request.form['Prenom'],scriptpath="C:\test.bat")
+       samdb.newuser(username=request.form['login'],password=request.form['password'],force_password_change_at_next_login_req=int(request.form['customSwitch3']),setpassword=int(request.form['customSwitch4']),mailaddress=request.form['email'],telephonenumber=request.form['phone'],surname=request.form['Nom'],givenname=request.form['Prenom'],scriptpath="C:\test.bat")
             
        return redirect(url_for('liste'))
 
